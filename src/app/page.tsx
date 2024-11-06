@@ -22,7 +22,7 @@ const page = () => {
               <b className="font-semibold">automation</b>
             </h6>
           </div>
-          <div className="flex flex-row gap-12 w-[75%]">
+          <div className="flex flex-row gap-12 w-[100%]">
             <div className="rounded-md shadow-2xl shadow-blue-300 w-auto p-4">
               <div className="inline-flex justify-between gap-4">
                 <div className="flex-col">
@@ -94,7 +94,7 @@ const page = () => {
           </div>
         </div>
       </div>
-      {/* <div className="flex flex-row">
+      <div className="flex flex-row">
         <div className="m-8">
           <p className="text-[#759cf2] text-sm font-normal rounded-sm bg-white p-2">
             Hype Cycle<sup>TM</sup> for Zero Trust Networking, 2023
@@ -119,7 +119,7 @@ const page = () => {
             height="307"
           />
         </div>
-      </div> */}
+      </div>
     </>
   );
 };

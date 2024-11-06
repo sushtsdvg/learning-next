@@ -1,0 +1,34 @@
+{
+    "kubeslice": {
+        "image": {
+            "name": "kubeslice logo",
+            "url": "/images/KubeSliceLogo.png"
+        },
+        "title": {
+            "part1": "Kube",
+            "part2": "Slice"
+        },
+        "subtitle": "Kubernetes Networking",
+        "description": "Service Connectivity Layer for managing fleet of clusters for better application performance",
+        "button": {
+            "primaryButton": "Try KubeSlice",
+            "secondaryButton": "Learn"
+        }
+    },
+    "smartscaler": {
+        "image": {
+            "name": "SmartScaler logo",
+            "url": "/images/SmartScalerLogo.png"
+        },
+        "title": {
+            "part1": "Smart",
+            "part2": " Scaler"
+        },
+        "subtitle": "Kubernetes Autoscaling",
+        "description": "Intelligent Remediation for autoscaling and efficient service automation",
+        "button": {
+            "primaryButton": "Try Smart Scaler",
+            "secondaryButton": "Learn"
+        }
+    }
+}
