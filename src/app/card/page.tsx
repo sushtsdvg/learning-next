@@ -1,5 +1,4 @@
 import Cards, { cardType } from "@/components/CardsNew";
-import CardsNew, { cardsType } from "@/components/CardsNewExtended";
 import FirstCard, { FirstCardType } from "@/components/FirstCard";
 const getCardData = (): cardType[] => {
   return [
@@ -52,10 +51,6 @@ const getCardData = (): cardType[] => {
       description:
         "Web Components usher in a new era of web development based on encapsulated and interoperable custom",
     },
-  ];
-};
-const getCardsData = (): cardsType[] => {
-  return [
     {
       image: {
         src: "/images/InVisionLogo.png",
@@ -96,6 +91,7 @@ const getCardsData = (): cardsType[] => {
     },
   ];
 };
+
 const getFirstCardData = (): FirstCardType => {
   return {
     label: "traveling",
@@ -105,7 +101,6 @@ const getFirstCardData = (): FirstCardType => {
 };
 export default function page() {
   const cardData = getCardData();
-  const cardsData = getCardsData();
   const firstCardData = getFirstCardData();
   return (
     <div className="w-full flex-col bg-[#f5f5f7] p-2">
@@ -125,7 +120,7 @@ export default function page() {
           button={firstCardData.button}
         />
       </div>
-      <div className="flex flex-row gap-8 p-4">
+      <div className="grid grid-rows-2 grid-flow-col gap-4 p-4">
         {cardData.map((cardprops) => {
           return (
             <Cards
@@ -135,20 +130,6 @@ export default function page() {
               period={cardprops.period}
               subtitle={cardprops.subtitle}
               description={cardprops.description}
-            />
-          );
-        })}
-      </div>
-      <div className="flex flex-row gap-8 p-4 w-[75%]">
-        {cardsData.map((cardsprops) => {
-          return (
-            <CardsNew
-              key={cardsprops.title}
-              image={cardsprops.image}
-              title={cardsprops.title}
-              period={cardsprops.period}
-              subtitle={cardsprops.subtitle}
-              description={cardsprops.description}
             />
           );
         })}
