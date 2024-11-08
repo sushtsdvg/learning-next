@@ -1,107 +1,111 @@
 import Cards, { cardType } from "@/components/CardsNew";
 import FirstCard, { FirstCardType } from "@/components/FirstCard";
-const getCardData = (): cardType[] => {
-  return [
-    {
-      image: {
-        src: "/images/BlackmonkLogo.png",
-        alt: "double spring",
-        width: 75,
-        height: 25,
-      },
-      period: "few seconds",
-      subtitle: "DoubleSpring",
-      title: "BlackMonk v3.5",
-      description: "New BlackMonk with UI updates + enhanced features.",
-    },
-    {
-      image: {
-        src: "/images/Black Monk Insider Logo.png",
-        alt: "blackMonkinsider",
-        width: 75,
-        height: 25,
-      },
-      period: "few seconds",
-      subtitle: "DoubleSpring",
-      title: "BlackMonk Insider",
-      description: "New template that exclusively built for local search",
-    },
-    {
-      image: {
-        src: "/images/ApplePayLogo.png",
-        alt: "double spring",
-        width: 75,
-        height: 25,
-      },
-      period: "a minute",
-      subtitle: "Stripe Inc.",
-      title: "Apple Pay on Stripe",
-      description: "Easy Apple Pay integration for businesses built on Stripe",
-    },
-    {
-      image: {
-        src: "/images/ProjectPolymer.png",
-        alt: "double spring",
-        width: 75,
-        height: 25,
-      },
-      period: "7 minutes",
-      subtitle: "Google Inc.",
-      title: "Project Polymer",
-      description:
-        "Web Components usher in a new era of web development based on encapsulated and interoperable custom",
-    },
-    {
-      image: {
-        src: "/images/InVisionLogo.png",
-        alt: "InVisionLogo",
-        width: 75,
-        height: 25,
-      },
-      period: "2 days",
-      title: "InVision",
-      subtitle: "InVision v5",
-      description:
-        "UI update + Reeengineered almost everything from the ground up.",
-    },
-    {
-      image: {
-        src: "/images/HyperLapseLogo.png",
-        alt: "Hyper Lapse",
-        width: 75,
-        height: 25,
-      },
-      period: "3 days",
-      title: "Instagram",
-      subtitle: "Hyperlapse",
-      description:
-        "Hyperlapse is one of the first extensions of the Instagram brand to date.",
-    },
-    {
-      image: {
-        src: "/images/StripeLogo.png",
-        alt: "Stripe Logo",
-        width: 75,
-        height: 25,
-      },
-      period: "a week",
-      title: "Stripe Inc.",
-      subtitle: "Stripe Amex Express Checkout",
-      description: "Stripe + Amex Express Checkout",
-    },
-  ];
+type firstCardDataType = {
+  firstCardData: FirstCardType;
+  cardsData: cardType[];
 };
-
-const getFirstCardData = (): FirstCardType => {
+const getCardData = (): firstCardDataType => {
   return {
-    label: "traveling",
-    text: "cappadocia",
-    button: "View Trip",
+    firstCardData: {
+      label: "traveling",
+      text: "cappadocia",
+      button: "View Trip",
+    },
+    cardsData: [
+      {
+        image: {
+          src: "/images/BlackmonkLogo.png",
+          alt: "double spring",
+          width: 75,
+          height: 25,
+        },
+        period: "few seconds",
+        subtitle: "DoubleSpring",
+        title: "BlackMonk v3.5",
+        description: "New BlackMonk with UI updates + enhanced features.",
+      },
+      {
+        image: {
+          src: "/images/Black Monk Insider Logo.png",
+          alt: "blackMonkinsider",
+          width: 75,
+          height: 25,
+        },
+        period: "few seconds",
+        subtitle: "DoubleSpring",
+        title: "BlackMonk Insider",
+        description: "New template that exclusively built for local search",
+      },
+      {
+        image: {
+          src: "/images/ApplePayLogo.png",
+          alt: "double spring",
+          width: 75,
+          height: 25,
+        },
+        period: "a minute",
+        subtitle: "Stripe Inc.",
+        title: "Apple Pay on Stripe",
+        description:
+          "Easy Apple Pay integration for businesses built on Stripe",
+      },
+      {
+        image: {
+          src: "/images/ProjectPolymer.png",
+          alt: "double spring",
+          width: 75,
+          height: 25,
+        },
+        period: "7 minutes",
+        subtitle: "Google Inc.",
+        title: "Project Polymer",
+        description:
+          "Web Components usher in a new era of web development based on encapsulated and interoperable custom",
+      },
+      {
+        image: {
+          src: "/images/InVisionLogo.png",
+          alt: "InVisionLogo",
+          width: 75,
+          height: 25,
+        },
+        period: "2 days",
+        title: "InVision",
+        subtitle: "InVision v5",
+        description:
+          "UI update + Reeengineered almost everything from the ground up.",
+      },
+      {
+        image: {
+          src: "/images/HyperLapseLogo.png",
+          alt: "Hyper Lapse",
+          width: 75,
+          height: 25,
+        },
+        period: "3 days",
+        title: "Instagram",
+        subtitle: "Hyperlapse",
+        description:
+          "Hyperlapse is one of the first extensions of the Instagram brand to date.",
+      },
+      {
+        image: {
+          src: "/images/StripeLogo.png",
+          alt: "Stripe Logo",
+          width: 75,
+          height: 25,
+        },
+        period: "a week",
+        title: "Stripe Inc.",
+        subtitle: "Stripe Amex Express Checkout",
+        description: "Stripe + Amex Express Checkout",
+      },
+    ],
   };
 };
+
 export default function page() {
-  const cardData = getCardData();
-  const firstCardData = getFirstCardData();
+  const { firstCardData, cardsData } = getCardData();
   return (
     <div className="w-full flex-col bg-[#f5f5f7] p-2">
       <div className="w-full inline-flex justify-between mb-2">
@@ -114,14 +118,14 @@ export default function page() {
       </div>
       <div className="w-full p-4 flex-col rounded-lg bg-[url('/images/Cappadocia.avif')] space-y-20">
         <FirstCard
-          key={firstCardData.label}
+          key={firstCardData.text}
           label={firstCardData.label}
           text={firstCardData.text}
           button={firstCardData.button}
         />
       </div>
       <div className="grid grid-rows-2 grid-flow-col gap-4 p-4">
-        {cardData.map((cardprops) => {
+        {cardsData.map((cardprops) => {
           return (
             <Cards
               key={cardprops.title}
