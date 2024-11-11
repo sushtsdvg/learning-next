@@ -75,7 +75,7 @@ export default function page() {
         <div className="flex flex-row justify-center">
           <p>or continue with email</p>
         </div>
-        <div className="flex justify-center">
+        <div className="flex flex-col justify-center">
           {formData.map((form) => {
             return (
               <Form
@@ -86,8 +86,35 @@ export default function page() {
             );
           })}
         </div>
+        <div className="inline-flex gap-2">
+          <div className="inline-flex gap-2">
+            <input type="checkbox" name="Remember Me" id="checkbox" />
+            <p>Remember me</p>
+          </div>
+          <div className="text-blue-600">
+            <a href="#">Forgot Password?</a>
+          </div>
+        </div>
+        <div className="bg-blue-500 rounded-lg w-full text-white text-center py-2">
+          <button type="submit">Log in</button>
+        </div>
+        <div className="inline-flex gap-2 p-2">
+          <p>Don&apos;t have an account?</p>
+          <a href="#" className="text-blue-500">
+            Create an account
+          </a>
+        </div>
       </div>
-      <div className="bg-blue-600 rounded-r-lg w-[50%]">right-part</div>
+      <div className="bg-blue-600 rounded-r-lg w-[50%]">
+        <div className="align-middle">
+          <Image
+            width={600}
+            height={400}
+            src="/images/form-image.png"
+            alt="form-image"
+          />
+        </div>
+      </div>
     </div>
   );
 }
