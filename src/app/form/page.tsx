@@ -1,7 +1,38 @@
-import Form, { formType } from "@/components/Form";
+'use client'
+
+import FormWrapper, { FormType, Form } from "@/components/Form";
+import { useFormik } from "formik";
 import Image from "next/image";
-const getFormData = (): formType[] => {
+import * as yup from 'yup';
+
+const getFormData = (): FormType[] => {
   return [
+    {
+      image: {
+        src: "/images/email-svgrepo-com.svg",
+        alt: "email-icon",
+        width: 20,
+        height: 10,
+      },
+      input: {
+        type: "text",
+        placeholder: "FullName",
+        name: "name",
+      },
+    },
+    {
+      image: {
+        src: "/images/email-svgrepo-com.svg",
+        alt: "email-icon",
+        width: 20,
+        height: 10,
+      },
+      input: {
+        type: "text",
+        placeholder: "Address",
+        name: "address",
+      },
+    },
     {
       image: {
         src: "/images/email-svgrepo-com.svg",
@@ -27,11 +58,29 @@ const getFormData = (): formType[] => {
         placeholder: "Password",
         name: "password",
       },
-    },
+    }
   ];
 };
+
+const lookUpValidations = {
+  'email': yup.string().email().required(),
+  'text': yup.string().required(),
+  'password': yup.string().required("Password is required").min(6),
+}
+
 export default function page() {
   const formData = getFormData();
+
+  const inputFields = formData.filter((formInput) => formInput?.input?.name).map((formInput) => formInput.input.name)
+  const initialValues = inputFields.reduce((prev, current) => ({ ...prev, [current]: '' }), {});
+  const validationYupValues = { ...initialValues };
+
+  formData.forEach((key, value) => {
+    validationYupValues[key.input.name] = lookUpValidations[key.input.type]
+  })
+
+  const validationSchema = yup.object().shape({ ...validationYupValues })
+
   return (
     <div className="w-full bg-gray-400 flex flex-row p-8">
       <div className="bg-white rounded-l-lg w-[50%]">
@@ -75,35 +124,37 @@ export default function page() {
         <div className="flex flex-row justify-center">
           <p>or continue with email</p>
         </div>
-        <div className="flex flex-col justify-center">
-          {formData.map((form) => {
-            return (
-              <Form
-                key={form.image.src}
-                image={form.image}
-                input={form.input}
-              />
-            );
-          })}
-        </div>
-        <div className="inline-flex gap-2">
+        <FormWrapper initialValues={initialValues} validationSchema={validationSchema}>
+          <div className="flex flex-col justify-center">
+            {formData.map((form, key) => {
+              return (
+                <Form
+                  key={key}
+                  image={form.image}
+                  input={form.input}
+                />
+              );
+            })}
+          </div>
           <div className="inline-flex gap-2">
-            <input type="checkbox" name="Remember Me" id="checkbox" />
-            <p>Remember me</p>
+            <div className="inline-flex gap-2">
+              <input type="checkbox" name="Remember Me" id="checkbox" />
+              <p>Remember me</p>
+            </div>
+            <div className="text-blue-600">
+              <a href="#">Forgot Password?</a>
+            </div>
           </div>
-          <div className="text-blue-600">
-            <a href="#">Forgot Password?</a>
+          <div className="bg-blue-500 rounded-lg w-full text-white text-center py-2">
+            <button type="submit">Log in</button>
           </div>
-        </div>
-        <div className="bg-blue-500 rounded-lg w-full text-white text-center py-2">
-          <button type="submit">Log in</button>
-        </div>
-        <div className="inline-flex gap-2 p-2">
-          <p>Don&apos;t have an account?</p>
-          <a href="#" className="text-blue-500">
-            Create an account
-          </a>
-        </div>
+          <div className="inline-flex gap-2 p-2">
+            <p>Don&apos;t have an account?</p>
+            <a href="#" className="text-blue-500">
+              Create an account
+            </a>
+          </div>
+        </FormWrapper>
       </div>
       <div className="bg-blue-600 rounded-r-lg w-[50%]">
         <div className="align-middle">
