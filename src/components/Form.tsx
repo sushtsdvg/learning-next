@@ -1,10 +1,11 @@
 "use client";
 
-import { useFormik } from "formik";
+import { Formik, FormikErrors, useFormikContext } from "formik";
 import Image from "next/image";
+import { ReactNode } from "react";
 import * as yup from "yup";
 
-export type formType = {
+export interface FormType {
   image: {
     width: number;
     height: number;
@@ -16,45 +17,72 @@ export type formType = {
     placeholder: string;
     name: string;
   };
-};
-export default function Form({ image, input }: formType) {
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
-    validationSchema: yup.object().shape({
-      email: yup.string().email().required("Email is required"),
-      password: yup.string().required("Password is required").min(6),
-    }),
-  });
-
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { target } = e;
-  //   formik.setFieldValue(target.name, target.value);
-  // };
+}
+export type yupStringSchema = yup.StringSchema<
+  string | undefined,
+  yup.AnyObject,
+  undefined,
+  ""
+>;
+export type initialValuesType = { [key: string]: yupStringSchema };
+export interface IlookUpValidations {
+  email: yupStringSchema;
+  password: yupStringSchema;
+}
+export interface IValidationYupValues {
+  [key: string]: yupStringSchema;
+}
+export default function FormWrapper({
+  initialValues,
+  validationSchema,
+  children,
+}: {
+  initialValues: initialValuesType;
+  validationSchema: yup.ObjectSchema<object, yup.AnyObject, object, "">;
+  children: ReactNode;
+}) {
   return (
-    <form className="flex-row" onSubmit={formik.handleSubmit}>
-      <div className="flex flex-col p-2">
-        <div className="inline-flex outline outline-gray-500 outline-1 rounded-lg p-2">
-          <Image
-            src={image.src}
-            alt={image.alt}
-            width={image.width}
-            height={image.height}
-          />
-          <input
-            type={input.type}
-            placeholder={input.placeholder}
-            name={input.placeholder}
-            onChange={formik.handleChange}
-            className="outline-none"
-          />
-        </div>
-      </div>
-    </form>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={(values) => {
+        alert(JSON.stringify(values, null, 2));
+      }}
+      validationSchema={validationSchema}
+    >
+      {(formik) => (
+        <form className="flex-col" onSubmit={formik.handleSubmit}>
+          <div className="flex flex-row p-2 justify-center">{children}</div>
+        </form>
+      )}
+    </Formik>
+  );
+}
+export function Form({ image, input }: FormType) {
+  const formik = useFormikContext();
+  const error: FormikErrors<typeof formik.values> = formik.errors;
+  return (
+    <div
+      className={
+        "inline-flex outline outline-gray-500 outline-1 rounded-lg p-2 m-2 "
+      }
+    >
+      <Image
+        src={image.src}
+        alt={image.alt}
+        width={image.width}
+        height={image.height}
+      />
+      <input
+        type={input.type}
+        placeholder={input.placeholder}
+        name={input.name}
+        onChange={formik.handleChange}
+        className="outline-none"
+      />
+      <p className="text-red-600 font-normal">
+        {JSON.stringify(error?.[input.name])}
+      </p>
+      {/* <p>{JSON.stringify(formik.errors)}</p> */}
+    </div>
   );
 }
